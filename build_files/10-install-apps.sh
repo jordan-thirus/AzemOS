@@ -12,7 +12,7 @@ dnf5 config-manager addrepo --id="1password" \
 	--set=enabled=0
 
 dnf5 install -y --enable-repo="1password" --enable-repo="mullvad-stable" \
-	pipx shellCheck shfmt podlet podman-compose 1password 1password-cli mullvad-vpn
+	pipx ShellCheck shfmt podlet podman-compose 1password 1password-cli mullvad-vpn
 
 systemctl enable mullvad-daemon.service
 
