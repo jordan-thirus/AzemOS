@@ -1,3 +1,4 @@
+export repo_organization := env("GITHUB_REPOSITORY_OWNER", "jordan-thirus")
 export image_name := env("IMAGE_NAME", "azemos")
 export default_tag := env("DEFAULT_TAG", "latest")
 export bib_image := env("BIB_IMAGE", "quay.io/centos-bootc/bootc-image-builder:latest")
@@ -90,6 +91,9 @@ build $target_image=image_name $tag=default_tag:
     #!/usr/bin/env bash
 
     BUILD_ARGS=()
+
+    BUILD_ARGS+=("--build-arg" "IMAGE_NAME=${image_name}")
+    BUILD_ARGS+=("--build-arg" "IMAGE_VENDOR=${repo_organization}")
     if [[ -z "$(git status -s)" ]]; then
         BUILD_ARGS+=("--build-arg" "SHA_HEAD_SHORT=$(git rev-parse --short HEAD)")
     fi
