@@ -2,6 +2,7 @@ app/com.calibre_ebook.calibre
 app/com.discordapp.Discord
 app/com.github.zocker_160.SyncThingy
 app/io.github.flattool.Warehouse
+app/io.podman_desktop.PodmanDesktop
 app/md.obsidian.Obsidian
 app/org.libreoffice.LibreOffice
 app/us.zoom.Zoom

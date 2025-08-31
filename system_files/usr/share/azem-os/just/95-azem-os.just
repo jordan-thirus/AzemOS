@@ -1,11 +1,5 @@
 # vim: set ft=make :
 
-# Install apps for local development from brew
-install-development-apps:
-    #!/usr/bin/bash
-    echo "Installing development programs..."
-    brew bundle --file=/usr/share/azem-os/homebrew/development.Brewfile
-
 # Install the latest version of the Node Version Manager (nvm)
 install-nvm:
     #!/usr/bin/bash

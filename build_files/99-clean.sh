@@ -11,6 +11,7 @@ log "Starting system cleanup"
 
 # Clean package manager cache
 dnf5 clean all
+dnf5 -y copr disable ublue-os/packages
 
 # Clean temporary files
 rm -rf /tmp/*
