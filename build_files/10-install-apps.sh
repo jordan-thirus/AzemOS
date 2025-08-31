@@ -11,8 +11,24 @@ dnf5 config-manager addrepo --id="1password" \
 	--set=gpgkey="https://downloads.1password.com/linux/keys/1password.asc" \
 	--set=enabled=0
 
-dnf5 install -y --enable-repo="1password" --enable-repo="mullvad-stable" \
-	pipx ShellCheck shfmt podlet podman-compose 1password 1password-cli mullvad-vpn
+dnf5 config-manager addrepo --id="vscodium" \
+	--set=baseurl="https://download.vscodium.com/rpms" \
+	--set=gpgkey="https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg" \
+	--set=enabled=0
+
+dnf5 install -y \
+	--enable-repo="1password" \
+	--enable-repo="mullvad-stable" \
+	--enable-repo="vscodium" \
+	1password \
+	1password-cli \
+	codium \
+	mullvad-vpn \
+	pipx \
+	podlet \
+	podman-compose \
+	ShellCheck \
+	shfmt
 
 systemctl enable mullvad-daemon.service
 
