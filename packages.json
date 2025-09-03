@@ -1,0 +1,28 @@
+{
+    "all": {
+        "include": {
+            "all": [
+                "1password",
+                "1password-cli",
+                "bcc",
+                "bpftrace",
+                "codium",
+                "nicstat",
+                "numactl",
+                "mullvad-vpn",
+                "pipx",
+                "podlet",
+                "podman-compose",
+                "sysprof",
+                "sysstat",
+                "tiptop",
+                "trace-cmd",
+                "virt-manager",
+                "virt-v2v",
+                "virt-viewer",
+                "ublue-os-libvirt-workarounds",
+                "ublue-setup-services"
+            ]
+        }
+    }
+}

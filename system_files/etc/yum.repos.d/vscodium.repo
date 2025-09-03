@@ -1,0 +1,5 @@
+[vscodium]
+name=vscodium - Created by dnf5 config-manager
+enabled=1
+baseurl=https://download.vscodium.com/rpms
+gpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg
