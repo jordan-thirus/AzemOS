@@ -1,9 +1,5 @@
-export pipx_spec_file := env("AZEMOS_PIPX_SPEC_FILE", "$HOME/.pipx.spec.json")
-export flatpak_spec_file := env("AZEMOS_FLATPAK_SPEC_FILE", "$HOME/.flatpak.spec.json")
-
-[private]
-default:
-    @just --list
+export pipx_spec_file := env("AZEMOS_PIPX_SPEC_FILE", "~/.pipx.spec.json")
+export flatpak_spec_file := env("AZEMOS_FLATPAK_SPEC_FILE", "~/.flatpak.spec.json")
 
 # Install the latest version of the Node Version Manager (nvm)
 [group('AzemOS')]
@@ -74,7 +70,7 @@ save-pipx-spec:
 update-pipx:
     #!/usr/bin/env bash
     pipx upgrade-all
-    @just save-pipx-spec
+    pipx list --json > ${pipx_spec_file}
 
 # Save the user's install flatpaks to a spec for easy reference
 [group('AzemOS')]
