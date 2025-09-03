@@ -41,8 +41,3 @@ dnf5 install -y \
 	virt-v2v \
 	virt-viewer \
 	ublue-os-libvirt-workarounds
-
-systemctl enable mullvad-daemon.service
-systemctl enable ublue-os-libvirt-workarounds.service
-
-install -Dm0644 -t /etc/ublue-os/ /ctx/flatpaks/*.list
