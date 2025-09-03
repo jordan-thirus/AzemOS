@@ -1,8 +1,14 @@
-# vim: set ft=make :
+export pipx_spec_file := env("AZEMOS_PIPX_SPEC_FILE", "$HOME/.pipx.spec.json")
+export flatpak_spec_file := env("AZEMOS_FLATPAK_SPEC_FILE", "$HOME/.flatpak.spec.json")
+
+[private]
+default:
+    @just --list
 
 # Install the latest version of the Node Version Manager (nvm)
+[group('AzemOS')]
 install-nvm:
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     echo "Installing nvm..."
 
     export NVM_DIR="$HOME/.nvm"
@@ -13,9 +19,21 @@ install-nvm:
 
     echo 'nvm installed. Configure as indicated on https://github.com/nvm-sh/nvm?tab=readme-ov-file#profile_snippet'
 
+# Update to the latest version of the Node Version Manager (nvm)
+[group('AzemOS')]
+update-nvm:
+    #!/usr/bin/env bash
+    export NVM_DIR="$HOME/.nvm"
+
+    cd "$NVM_DIR"
+    git fetch --tags origin
+    git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+    \. "$NVM_DIR/nvm.sh"
+
 # Install the XIV Launcher, configured to use the KDE Wallet
+[group('AzemOS')]
 install-xivlauncher:
-    #!/bin/sh -e
+    #!/usr/bin/env bash
 
     echo "-- XLM Native Auto-Installer --"
     echo
@@ -44,3 +62,34 @@ install-xivlauncher:
 #     echo "Installing SMAPI..."
 #      curl --fail -L https://github.com/Pathoschild/SMAPI/releases/download/{{VERSION}}/SMAPI-{{VERSION}}-installer.zip > /tmp/SMAPI.zip
 #     GAME_DIRECTORY='~/.steam/steam/steamapps/common/Stardew Valley/'
+
+# Save the user's install pipx programs to a spec for easy reference
+[group('AzemOS')]
+save-pipx-spec:
+    #!/usr/bin/env bash
+    pipx list --json > ${pipx_spec_file}
+
+# Update the user's install pipx programs and spec file
+[group('AzemOS')]
+update-pipx:
+    #!/usr/bin/env bash
+    pipx upgrade-all
+    @just save-pipx-spec
+
+# Save the user's install flatpaks to a spec for easy reference
+[group('AzemOS')]
+save-flatpak-spec:
+    #!/usr/bin/env bash
+    flatpak list --user --app --columns=application > ${flatpak_spec_file}
+
+# Install user's flatpaks from a spec
+[group('AzemOS')]
+install-user-flatpaks:
+    #!/usr/bin/env bash
+    xargs -a ${flatpak_spec_file} flatpak --user -y install
+
+# Setup 1Password to start on login
+[group('AzemOS')]
+setup-1password-autostart:
+    #!/usr/bin/env bash
+    cp -f /etc/skel/.config/autostart/1password.desktop $HOME/.config/autostart/1password.desktop
