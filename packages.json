@@ -3,7 +3,6 @@
         "include": {
             "all": [
                 "1password",
-                "1password-cli",
                 "bcc",
                 "bpftrace",
                 "codium",

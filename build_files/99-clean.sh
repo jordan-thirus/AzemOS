@@ -13,7 +13,7 @@ log "Starting system cleanup"
 dnf5 clean all
 dnf5 -y copr disable ublue-os/packages
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/1password.repo
+# sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/1password.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/mullvad.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/vscodium.repo
 
