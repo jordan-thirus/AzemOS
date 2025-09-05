@@ -1,5 +1,6 @@
-export pipx_spec_file := env("AZEMOS_PIPX_SPEC_FILE", "~/.pipx.spec.json")
-export flatpak_spec_file := env("AZEMOS_FLATPAK_SPEC_FILE", "~/.flatpak.spec.json")
+export pipx_spec_file := env("AZEMOS_PIPX_SPEC_FILE", prepend(env('HOME'), "/.pipx.spec.json"))
+export flatpak_spec_file := env("AZEMOS_FLATPAK_SPEC_FILE", prepend(env('HOME'), "/.flatpak.spec.txt"))
+
 
 # Install the latest version of the Node Version Manager (nvm)
 [group('AzemOS')]
