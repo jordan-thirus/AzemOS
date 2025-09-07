@@ -85,8 +85,8 @@ install-user-flatpaks:
     #!/usr/bin/env bash
     xargs -a ${flatpak_spec_file} flatpak --user -y install
 
-# Setup 1Password to start on login
+# Install the 1password cli
 [group('AzemOS')]
-setup-1password-autostart:
+install-1password-cli:
     #!/usr/bin/env bash
-    cp -f /etc/skel/.config/autostart/1password.desktop $HOME/.config/autostart/1password.desktop
+   rpm-ostree install 1password-cli
