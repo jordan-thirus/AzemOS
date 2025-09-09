@@ -3,9 +3,7 @@
 set -ouex pipefail
 mkdir -p /var/opt
 
-
 dnf5 -y copr enable ublue-os/packages
-
 
 set -ouex pipefail
 
@@ -15,7 +13,7 @@ readarray -t INCLUDED_PACKAGES < <(jq -r "[(.all.include | (select(.all != null)
 
 # Install Packages
 if [[ "${#INCLUDED_PACKAGES[@]}" -gt 0 ]]; then
-    dnf5 -y install "${INCLUDED_PACKAGES[@]}"
+	dnf5 -y install "${INCLUDED_PACKAGES[@]}"
 else
-    echo "No packages to install."
+	echo "No packages to install."
 fi

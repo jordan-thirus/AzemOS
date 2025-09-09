@@ -29,6 +29,7 @@ The following are installed in addition to what is included in Bazzite.
 - `update-pipx` - Upgrades all pipx programs then updates the pipx spec file.
 - `save-flatpak-spec` - Saves the user's flatpaks programs to a file for replicating across multiple installs. Default location is `~/.flatpak.spec.txt`
 - `install-user-flatpaks` - Installs user-scoped flatpaks from the spec file
+- `install-azemos-flatpaks`  - Installs system-scoped flatpaks for AzemOS. Necessary after rebasing.
 - `install-1password-cli` - Install the 1Password CLI by layering it via `rpm-ostree`
 
 ### TODO

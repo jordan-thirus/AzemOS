@@ -1,7 +1,6 @@
 export pipx_spec_file := env("AZEMOS_PIPX_SPEC_FILE", prepend(env('HOME'), "/.pipx.spec.json"))
 export flatpak_spec_file := env("AZEMOS_FLATPAK_SPEC_FILE", prepend(env('HOME'), "/.flatpak.spec.txt"))
 
-
 # Install the latest version of the Node Version Manager (nvm)
 [group('AzemOS')]
 install-nvm:
@@ -85,8 +84,16 @@ install-user-flatpaks:
     #!/usr/bin/env bash
     xargs -a ${flatpak_spec_file} flatpak --user -y install
 
+install-azemos-flatpaks:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    echo "Installing Flatpaks..."
+    xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/jordan-thirus/AzemOS/refs/heads/main/flatpaks/system-flatpaks.list) flatpak --system -y install
+    echo "Flatpaks installation complete."
+
 # Install the 1password cli
 [group('AzemOS')]
 install-1password-cli:
     #!/usr/bin/env bash
-   rpm-ostree install 1password-cli
+    rpm-ostree install 1password-cli
