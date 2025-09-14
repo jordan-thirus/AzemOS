@@ -1,6 +1,10 @@
 export pipx_spec_file := env("AZEMOS_PIPX_SPEC_FILE", prepend(env('HOME'), "/.pipx.spec.json"))
 export flatpak_spec_file := env("AZEMOS_FLATPAK_SPEC_FILE", prepend(env('HOME'), "/.flatpak.spec.txt"))
 
+# For a fresh install. Install all flatpaks, pipx programs, brews, and nvm
+[group('AzemOS')]
+install-azemos: install-brew-bundle install-nvm install-pipx-programs install-azemos-flatpaks install-user-flatpaks
+
 # Install the latest version of the Node Version Manager (nvm)
 [group('AzemOS')]
 install-nvm:
@@ -59,6 +63,14 @@ install-xivlauncher:
 #      curl --fail -L https://github.com/Pathoschild/SMAPI/releases/download/{{VERSION}}/SMAPI-{{VERSION}}-installer.zip > /tmp/SMAPI.zip
 #     GAME_DIRECTORY='~/.steam/steam/steamapps/common/Stardew Valley/'
 
+# Update the user's install pipx programs and spec file
+[group('AzemOS')]
+install-pipx-programs:
+    #!/usr/bin/env bash
+    if [ -f "${pipx_spec_file}" ]; then
+        pipx install-all  ${pipx_spec_file}
+    fi
+
 # Save the user's install pipx programs to a spec for easy reference
 [group('AzemOS')]
 save-pipx-spec:
@@ -72,18 +84,22 @@ update-pipx:
     pipx upgrade-all
     pipx list --json > ${pipx_spec_file}
 
+# Install user's flatpaks from a spec
+[group('AzemOS')]
+install-user-flatpaks:
+    #!/usr/bin/env bash
+    if [ -f "${flatpak_spec_file}" ]; then
+        xargs -a ${flatpak_spec_file} flatpak --system -y install
+    fi
+
 # Save the user's install flatpaks to a spec for easy reference
 [group('AzemOS')]
 save-flatpak-spec:
     #!/usr/bin/env bash
     flatpak list --user --app --columns=application > ${flatpak_spec_file}
 
-# Install user's flatpaks from a spec
+# Install system flatpaks for AzemOS
 [group('AzemOS')]
-install-user-flatpaks:
-    #!/usr/bin/env bash
-    xargs -a ${flatpak_spec_file} flatpak --user -y install
-
 install-azemos-flatpaks:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -97,3 +113,26 @@ install-azemos-flatpaks:
 install-1password-cli:
     #!/usr/bin/env bash
     rpm-ostree install 1password-cli
+
+# Install brews from the global Brewfile
+[group('AzemOS')]
+install-brew-bundle:
+    #!/usr/bin/env bash
+    if [ -f "$HOME/.Brewfile" ]; then
+        brew bundle install --global
+    fi
+
+# Start or restart all quadlet containers for a user
+[group('AzemOS')]
+start-quadlet-containers:
+    #!/usr/bin/env bash
+    systemctl --user daemon-reload
+    quadlets=()
+
+    read -a quadlets <<< $(find $HOME/.config/containers/systemd/*.container -printf "%f ")
+
+    for file in ${quadlets[@]}; do
+        quadlet=$(echo "${file%.*}")
+        echo "Starting quadlet $quadlet"
+        systemctl --user start $quadlet
+    done
