@@ -23,15 +23,21 @@ The following are installed in addition to what is included in Bazzite.
 - Podman Desktop
 
 ### `ujust` commands
-- `install-nvm` \ `update-nvm` - performs a manual or update install of NVM. Your dotfile of choice needs to be updated.
-- `install-xivlauncher` - installs the XIVLauncher as a Steam compatability tool with the default credentials storage as the KDEWallet. This provides a better experience running FFXIV on Linux.
-- `save-pipx-spec` - Saves the user's installed pipx programs to a file for replicating across multiple installs. Default location is `~/.pipx.spec.json`
-- `update-pipx` - Upgrades all pipx programs then updates the pipx spec file.
-- `save-flatpak-spec` - Saves the user's flatpaks programs to a file for replicating across multiple installs. Default location is `~/.flatpak.spec.txt`
-- `install-user-flatpaks` - Installs user-scoped flatpaks from the spec file
-- `install-azemos-flatpaks`  - Installs system-scoped flatpaks for AzemOS. Necessary after rebasing.
-- `install-1password-cli` - Install the 1Password CLI by layering it via `rpm-ostree`
-
+```
+    install-1password-cli    # Install the 1password cli
+    install-azemos           # For a fresh install. Install all flatpaks, pipx programs, brews, and nvm
+    install-azemos-flatpaks  # Install system flatpaks for AzemOS
+    install-brew-bundle      # Install brews from the global Brewfile
+    install-nvm              # Install the latest version of the Node Version Manager (nvm)
+    install-pipx-programs    # Update the user's install pipx programs and spec file
+    install-user-flatpaks    # Install user's flatpaks from a spec
+    install-xivlauncher      # Install the XIV Launcher, configured to use the KDE Wallet
+    save-flatpak-spec        # Save the user's install flatpaks to a spec for easy reference
+    save-pipx-spec           # Save the user's install pipx programs to a spec for easy reference
+    start-quadlet-containers # Start or restart all quadlet containers for a user
+    update-nvm               # Update to the latest version of the Node Version Manager (nvm)
+    update-pipx              # Update the user's install pipx programs and spec file
+```
 ### TODO
 - [ ] build NVIDIA variant
 - [ ] add command to install SMAPI 
