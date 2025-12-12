@@ -1,9 +1,8 @@
 export pipx_spec_file := env("AZEMOS_PIPX_SPEC_FILE", prepend(env('HOME'), "/.pipx.spec.json"))
-export flatpak_spec_file := env("AZEMOS_FLATPAK_SPEC_FILE", prepend(env('HOME'), "/.flatpak.spec.txt"))
 
 # For a fresh install. Install all flatpaks, pipx programs, brews, and nvm
 [group('AzemOS')]
-install-azemos: install-brew-bundle install-nvm install-pipx-programs install-azemos-flatpaks install-user-flatpaks
+install-azemos: install-brew-bundle install-nvm install-pipx-programs install-azemos-flatpaks
 
 # Install the latest version of the Node Version Manager (nvm)
 [group('AzemOS')]
@@ -56,13 +55,6 @@ install-xivlauncher:
     echo
     echo "-- Auto Installer Complete: Restart Steam and follow the guide at https://goatcorp.github.io/faq/steamdeck or https://github.com/Blooym/xlm#readme to continue! --"
 
-# # Install a specific version of SMAPI
-# install-smapi VERSION:
-#      #!/bin/sh -e
-#     echo "Installing SMAPI..."
-#      curl --fail -L https://github.com/Pathoschild/SMAPI/releases/download/{{VERSION}}/SMAPI-{{VERSION}}-installer.zip > /tmp/SMAPI.zip
-#     GAME_DIRECTORY='~/.steam/steam/steamapps/common/Stardew Valley/'
-
 # Update the user's install pipx programs and spec file
 [group('AzemOS')]
 install-pipx-programs:
@@ -83,20 +75,6 @@ update-pipx:
     #!/usr/bin/env bash
     pipx upgrade-all
     pipx list --json > ${pipx_spec_file}
-
-# Install user's flatpaks from a spec
-[group('AzemOS')]
-install-user-flatpaks:
-    #!/usr/bin/env bash
-    if [ -f "${flatpak_spec_file}" ]; then
-        xargs -a ${flatpak_spec_file} flatpak --system -y install
-    fi
-
-# Save the user's install flatpaks to a spec for easy reference
-[group('AzemOS')]
-save-flatpak-spec:
-    #!/usr/bin/env bash
-    flatpak list --user --app --columns=application > ${flatpak_spec_file}
 
 # Install system flatpaks for AzemOS
 [group('AzemOS')]
@@ -119,7 +97,7 @@ install-1password-cli:
 install-brew-bundle:
     #!/usr/bin/env bash
     if [ -f "$HOME/.Brewfile" ]; then
-        brew bundle install --global
+        brew bundle install --global --cleanup
     fi
 
 # Start or restart all quadlet containers for a user

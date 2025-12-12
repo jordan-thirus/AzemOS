@@ -1,0 +1,16 @@
+[Desktop Entry]
+Categories=Network;
+Comment=Mullvad VPN client
+Exec=/usr/lib/opt/Mullvad\\ VPN/mullvad-vpn  %U
+Icon=mullvad-vpn
+Name=Mullvad VPN
+NoDisplay=false
+Path=
+PrefersNonDefaultGPU=false
+StartupNotify=true
+StartupWMClass=Mullvad VPN
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
