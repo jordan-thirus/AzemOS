@@ -1,3 +1,5 @@
+ARG BASE_IMAGE=ghcr.io/ublue-os/bazzite:stable
+
 # Allow build scripts to be referenced without being copied into the final image
 FROM scratch AS ctx
 COPY build_files /build_files
@@ -5,11 +7,12 @@ COPY system_files /system_files
 COPY flatpaks /flatpaks
 COPY packages.json /
 
+ARG BASE_IMAGE
 # Base Image
-FROM ghcr.io/ublue-os/bazzite:stable
+FROM $BASE_IMAGE as azemos
 
 ARG IMAGE_NAME="${IMAGE_NAME:-azem-os}"
-ARG IMAGE_VENDOR="{IMAGE_VENDOR:-jordan-thirus}"
+ARG IMAGE_VENDOR="${IMAGE_VENDOR:-jordan-thirus}"
 
 ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:latest
