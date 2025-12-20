@@ -9,7 +9,6 @@ The following are installed in addition to what is included in Bazzite.
 - 1Password
 - Mullvad VPN 
 - VSCodium 
-- pipx
 - podlet
 - podman-compose
 
@@ -30,9 +29,7 @@ The following are installed in addition to what is included in Bazzite.
     install-brew-bundle      # Install brews from the global Brewfile
     install-nvm              # Install the latest version of the Node Version Manager (nvm)
     install-pipx-programs    # Update the user's install pipx programs and spec file
-    install-user-flatpaks    # Install user's flatpaks from a spec
     install-xivlauncher      # Install the XIV Launcher, configured to use the KDE Wallet
-    save-flatpak-spec        # Save the user's install flatpaks to a spec for easy reference
     save-pipx-spec           # Save the user's install pipx programs to a spec for easy reference
     start-quadlet-containers # Start or restart all quadlet containers for a user
     update-nvm               # Update to the latest version of the Node Version Manager (nvm)
@@ -40,7 +37,6 @@ The following are installed in addition to what is included in Bazzite.
 ```
 ### TODO
 - [ ] build NVIDIA variant
-- [ ] add command to install SMAPI 
 - [ ] setup changelog
 
 ## Using Azem OS

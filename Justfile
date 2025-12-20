@@ -2,6 +2,10 @@ export repo_organization := env("GITHUB_REPOSITORY_OWNER", "jordan-thirus")
 export image_name := env("IMAGE_NAME", "azemos")
 export default_tag := env("DEFAULT_TAG", "latest")
 export bib_image := env("BIB_IMAGE", "quay.io/centos-bootc/bootc-image-builder:latest")
+export base_image := "ghcr.io/ublue-os/bazzite:stable"
+export nvidia_base_image := "ghcr.io/ublue-os/bazzite-nvidia:stable"
+export nvidia_image_name := env("IMAGE_NAME", "azemos-nvidia")
+
 
 alias build-vm := build-qcow2
 alias rebuild-vm := rebuild-qcow2
@@ -87,13 +91,14 @@ sudoif command *args:
 #
 
 # Build the image using the specified parameters
-build $target_image=image_name $tag=default_tag:
+build $target_image=image_name $tag=default_tag $base_image=base_image:
     #!/usr/bin/env bash
 
     BUILD_ARGS=()
 
     BUILD_ARGS+=("--build-arg" "IMAGE_NAME=${image_name}")
     BUILD_ARGS+=("--build-arg" "IMAGE_VENDOR=${repo_organization}")
+    BUILD_ARGS+=("--build-arg" "BASE_IMAGE=${base_image}")
     if [[ -z "$(git status -s)" ]]; then
         BUILD_ARGS+=("--build-arg" "SHA_HEAD_SHORT=$(git rev-parse --short HEAD)")
     fi
@@ -102,7 +107,10 @@ build $target_image=image_name $tag=default_tag:
         "${BUILD_ARGS[@]}" \
         --pull=newer \
         --tag "${target_image}:${tag}" \
-        .
+        -f Containerfile
+        
+build_nvidia: (build nvidia_image_name default_tag nvidia_base_image)
+
 
 # Command: _rootful_load_image
 # Description: This script checks if the current user is root or running under sudo. If not, it attempts to resolve the image tag using podman inspect.
