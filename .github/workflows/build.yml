@@ -128,7 +128,7 @@ jobs:
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
           oci: false
-          build-args:
+          build-args: |
             IMAGE_NAME=${{ env.IMAGE_NAME }}
             BASE_IMAGE=${{ env.BASE_IMAGE }}
 
