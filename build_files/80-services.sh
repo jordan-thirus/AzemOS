@@ -3,4 +3,3 @@ set -euo pipefail
 
 systemctl --global enable ublue-user-setup.service
 systemctl enable mullvad-daemon.service
-systemctl enable ublue-os-libvirt-workarounds.service
