@@ -1,8 +1,7 @@
 export pipx_spec_file := env("AZEMOS_PIPX_SPEC_FILE", prepend(env('HOME'), "/.pipx.spec.json"))
 
-# For a fresh install. Install all flatpaks, pipx programs, brews, and nvm
 [group('AzemOS')]
-install-azemos: install-brew-bundle install-nvm install-pipx-programs install-azemos-flatpaks
+install-azemos: install-nvm install-pipx-programs
 
 # Install the latest version of the Node Version Manager (nvm)
 [group('AzemOS')]
@@ -75,30 +74,6 @@ update-pipx:
     #!/usr/bin/env bash
     pipx upgrade-all
     pipx list --json > ${pipx_spec_file}
-
-# Install system flatpaks for AzemOS
-[group('AzemOS')]
-install-azemos-flatpaks:
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    echo "Installing Flatpaks..."
-    xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/jordan-thirus/AzemOS/refs/heads/main/flatpaks/system-flatpaks.list) flatpak --system -y install
-    echo "Flatpaks installation complete."
-
-# Install the 1password cli
-[group('AzemOS')]
-install-1password-cli:
-    #!/usr/bin/env bash
-    rpm-ostree install 1password-cli
-
-# Install brews from the global Brewfile
-[group('AzemOS')]
-install-brew-bundle:
-    #!/usr/bin/env bash
-    if [ -f "$HOME/.Brewfile" ]; then
-        brew bundle install --global --cleanup
-    fi
 
 # Start or restart all quadlet containers for a user
 [group('AzemOS')]

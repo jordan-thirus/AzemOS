@@ -1,0 +1,20 @@
+# Execute binaries from Python packages in isolated environments
+brew "pipx"
+# Generate podman quadlet files from a podman command or compose file
+brew "podlet"
+# Alternative to docker-compose using podman
+brew "podman-compose"
+
+cask "font-arial"
+cask "font-dynalight"
+cask "font-times-new-roman"
+
+flatpak "com.calibre_ebook.calibre"
+flatpak "com.discordapp.Discord"
+flatpak "com.github.zocker_160.SyncThingy"
+flatpak "io.podman_desktop.PodmanDesktop"
+flatpak "md.obsidian.Obsidian"
+flatpak "org.kde.kcalc"
+flatpak "org.kde.kolourpaint"
+flatpak "org.libreoffice.LibreOffice"
+flatpak "us.zoom.Zoom"

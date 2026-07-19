@@ -2,7 +2,9 @@
 
 set -ouex pipefail
 mkdir -p /var/opt
+mkdir -p /var/usr/local
 
+rm -r /usr/local
 dnf5 -y copr enable ublue-os/packages
 
 set -ouex pipefail
