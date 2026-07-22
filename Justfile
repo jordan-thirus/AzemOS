@@ -6,7 +6,6 @@ export base_image := "ghcr.io/ublue-os/bazzite:stable"
 export nvidia_base_image := "ghcr.io/ublue-os/bazzite-nvidia:stable"
 export nvidia_image_name := env("IMAGE_NAME", "azemos-nvidia")
 
-
 alias build-vm := build-qcow2
 alias rebuild-vm := rebuild-qcow2
 alias run-vm := run-vm-qcow2
@@ -108,9 +107,8 @@ build $target_image=image_name $tag=default_tag $base_image=base_image:
         --pull=newer \
         --tag "${target_image}:${tag}" \
         -f Containerfile
-        
-build_nvidia: (build nvidia_image_name default_tag nvidia_base_image)
 
+build_nvidia: (build nvidia_image_name default_tag nvidia_base_image)
 
 # Command: _rootful_load_image
 # Description: This script checks if the current user is root or running under sudo. If not, it attempts to resolve the image tag using podman inspect.

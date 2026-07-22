@@ -2,12 +2,7 @@
     "all": {
         "include": {
             "all": [
-                "1password",
-                "codium",
-                "google-chrome-stable",
                 "mullvad-vpn",
-                "podlet",
-                "podman-compose",
                 "ublue-setup-services"
             ]
         }
