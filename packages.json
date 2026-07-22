@@ -2,10 +2,6 @@
     "all": {
         "include": {
             "all": [
-                "1password",
-                "1password-cli",
-                "codium",
-                "google-chrome-stable",
                 "mullvad-vpn",
                 "ublue-setup-services"
             ]

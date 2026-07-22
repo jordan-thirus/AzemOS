@@ -1,7 +1,5 @@
-export pipx_spec_file := env("AZEMOS_PIPX_SPEC_FILE", prepend(env('HOME'), "/.pipx.spec.json"))
-
 [group('AzemOS')]
-install-azemos: install-nvm install-pipx-programs
+install-azemos: install-nvm
 
 # Install the latest version of the Node Version Manager (nvm)
 [group('AzemOS')]
@@ -53,27 +51,6 @@ install-xivlauncher:
 
     echo
     echo "-- Auto Installer Complete: Restart Steam and follow the guide at https://goatcorp.github.io/faq/steamdeck or https://github.com/Blooym/xlm#readme to continue! --"
-
-# Update the user's install pipx programs and spec file
-[group('AzemOS')]
-install-pipx-programs:
-    #!/usr/bin/env bash
-    if [ -f "${pipx_spec_file}" ]; then
-        pipx install-all  ${pipx_spec_file}
-    fi
-
-# Save the user's install pipx programs to a spec for easy reference
-[group('AzemOS')]
-save-pipx-spec:
-    #!/usr/bin/env bash
-    pipx list --json > ${pipx_spec_file}
-
-# Update the user's install pipx programs and spec file
-[group('AzemOS')]
-update-pipx:
-    #!/usr/bin/env bash
-    pipx upgrade-all
-    pipx list --json > ${pipx_spec_file}
 
 # Start or restart all quadlet containers for a user
 [group('AzemOS')]

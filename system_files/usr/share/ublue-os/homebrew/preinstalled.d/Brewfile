@@ -1,15 +1,19 @@
-# Execute binaries from Python packages in isolated environments
-brew "pipx"
 # Generate podman quadlet files from a podman command or compose file
 brew "podlet"
 # Alternative to docker-compose using podman
 brew "podman-compose"
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
 
 cask "font-arial"
 cask "font-dynalight"
 cask "font-times-new-roman"
+cask "ublue-os/tap/1password-gui-linux"
+cask "ublue-os/tap/1password-cli-linux"
+cask "ublue-os/tap/vscodium-linux"
 
 flatpak "com.calibre_ebook.calibre"
+flatpak "org.chromium.Chromium"
 flatpak "com.discordapp.Discord"
 flatpak "com.github.zocker_160.SyncThingy"
 flatpak "io.podman_desktop.PodmanDesktop"
